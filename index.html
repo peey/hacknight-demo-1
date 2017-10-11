@@ -5,17 +5,28 @@
   <body>
     <div id="box" style="background:red; height: 100px; width: 100px; position: relative; left: 0"></div>
   <script>
+    
+    // a general function which you can use with any animation
+    function calculateAnimationRate(start, end, millitime, framerate) {
+      var rate = ((end - start) / (millitime/1000))/framerate;
+      return rate;
+    }
+
     // The following is a API provided by the browser so we can execute our code (contained in function foo)  when all elements on page have loaded.
     // it's not safe to run code without this because the code might be executed even before your browser has converted the html to a proper structure which it provides you an API to modify
     document.addEventListener("DOMContentLoaded", function foo () {
       var box = document.getElementById("box");
       var position = 0;
+      var framerate = 60; //60 fps
+      var rate = calculateAnimationRate(0, 300, 500, framerate); // will be added to x-position of the box
+      var interval = 1000/framerate; // milliseconds per frame
+
       setInterval(function bar() {
         if (position < 300) {
-          position += 1;
+          position += rate;
           box.style.left = position; 
         }
-      }, 33);
+      }, interval);
     });
   </script>
   </body>
