@@ -19,14 +19,17 @@
       var position = 0;
       var framerate = 60; //60 fps
       var rate = calculateAnimationRate(0, 300, 500, framerate); // will be added to x-position of the box
-      var interval = 1000/framerate; // milliseconds per frame
 
-      setInterval(function bar() {
+      function animationStep() {
         if (position < 300) {
           position += rate;
           box.style.left = position; 
+          // note, unlike setInterval, requestAnimationFrame runs only once, so we queue the function again to run on next animation frame
+          window.requestAnimationFrame(animationStep);
         }
-      }, interval);
+      };
+
+      window.requestAnimationFrame(animationStep);
     });
   </script>
   </body>
