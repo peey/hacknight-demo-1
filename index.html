@@ -3,8 +3,20 @@
     <title> An Animation </title>
   </head>
   <body>
-    <div style="background:red; height: 100px; width: 100px; position: relative; left: 300"></div>
+    <div id="box" style="background:red; height: 100px; width: 100px; position: relative; left: 0"></div>
   <script>
+    // The following is a API provided by the browser so we can execute our code (contained in function foo)  when all elements on page have loaded.
+    // it's not safe to run code without this because the code might be executed even before your browser has converted the html to a proper structure which it provides you an API to modify
+    document.addEventListener("DOMContentLoaded", function foo () {
+      var box = document.getElementById("box");
+      var position = 0;
+      setInterval(function bar() {
+        if (position < 300) {
+          position += 1;
+          box.style.left = position; 
+        }
+      }, 33);
+    });
   </script>
   </body>
 </html>
